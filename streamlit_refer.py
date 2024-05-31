@@ -5,18 +5,13 @@ from loguru import logger
 from langchain.chains import ConversationalRetrievalChain
 from langchain.chat_models import ChatOpenAI
 
-# document loaders (pdf, docs, ppt, etc...)
 from langchain.document_loaders import PyPDFLoader
 from langchain.document_loaders import Docx2txtLoader
 from langchain.document_loaders import UnstructuredPowerPointLoader
-from langchain.document_loaders import UnstructuredURLLoader
-from langchain.document_loaders.csv_loader import CSVLoader
 
-# Text splitters
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 
-# VectorDB
 from langchain.memory import ConversationBufferMemory
 from langchain.vectorstores import FAISS
 
@@ -29,7 +24,7 @@ def main():
     page_title="DirChat",
     page_icon=":books:")
 
-    st.title("_Private Data :blue[Private Assistance BOT]_ :books:")
+    st.title("_Private Data :red[QA Chat]_ :books:")
 
     if "conversation" not in st.session_state:
         st.session_state.conversation = None
@@ -46,7 +41,7 @@ def main():
         process = st.button("Process")
     if process:
         if not openai_api_key:
-            st.info("Please add your OpenAI API key to continue. If you don't have API key, please visit https://platform.openai.com/api-key")
+            st.info("Please add your OpenAI API key to continue.")
             st.stop()
         files_text = get_text(uploaded_files)
         text_chunks = get_text_chunks(files_text)
@@ -117,9 +112,6 @@ def get_text(docs):
         elif '.pptx' in doc.name:
             loader = UnstructuredPowerPointLoader(file_name)
             documents = loader.load_and_split()
-        # elif '.csv' in doc.name:
-        #     loader = CSVLoader(file_name, dele)
-        #     documents = loader.load_and_split()
 
         doc_list.extend(documents)
     return doc_list
