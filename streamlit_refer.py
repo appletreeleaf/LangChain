@@ -5,7 +5,8 @@ import tiktoken
 from loguru import logger
 
 from langchain.chains import ConversationalRetrievalChain
-from langchain.chat_models.openai import ChatOpenAI
+# from langchain.chat_models.openai import ChatOpenAI
+from langchain_openai import ChatOpenAI
 
 # document loaders (pdf, docs, ppt, url, etc...)
 from langchain.document_loaders import PyPDFLoader
